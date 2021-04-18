@@ -1,0 +1,64 @@
+main {
+    overflow-y: auto;
+}
+ul {
+    list-style-type: none;
+    //padding: 0 40px 40px 40px;
+    padding: 0 40px;
+}
+
+li {
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: start;
+    align-items: center;
+    column-gap: 10px;
+    border-bottom: 1px solid #eaeaea;
+    padding: 10px 0;
+    img {
+        width: 74px;
+        height: 74px;
+    }
+    &.selected {
+        img {
+            filter: brightness(50%);
+        }
+        span {
+            color: #06a9f6;
+        }
+    }
+}
+
+.loading {
+    font-size: 22px;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, 0);
+}
+
+.fadeImage {
+    display: none;
+    width: 300px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    //moving center of image
+    margin-top: -150px; 
+}
+
+.animateFade {
+    animation: fadeInAndOut ease 1s forwards;    
+}
+@keyframes fadeInAndOut {
+    0% {
+        opacity: 0;  
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;          
+    }
+}

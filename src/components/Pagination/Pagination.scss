@@ -1,0 +1,14 @@
+.pagination {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    background-color: #FFFFFF;
+    padding: 0 10px;
+    height: 40px;
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: end;
+    align-items: center;
+    column-gap: 5px;    
+}
