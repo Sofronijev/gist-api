@@ -1,5 +1,7 @@
 html {
-  scroll-behavior: smooth;    
+  scroll-behavior: smooth;   
+  //Always showng pages so on loading page width stays the same
+  overflow-y: scroll; 
 }
 
 body {

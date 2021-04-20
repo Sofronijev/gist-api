@@ -1,6 +1,3 @@
-main {
-    overflow-y: auto;
-}
 ul {
     list-style-type: none;
     //padding: 0 40px 40px 40px;
@@ -27,6 +24,9 @@ li {
             color: #06a9f6;
         }
     }
+    &:hover {
+        cursor: pointer;
+    }
 }
 
 .loading {
@@ -37,28 +37,37 @@ li {
     transform: translate(-50%, 0);
 }
 
-.fadeImage {
+//container is used so you can't click on another row until animation is finished
+.img-container {
     display: none;
-    width: 300px;
     position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, 0);
-    //moving center of image
-    margin-top: -150px; 
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0) ;
+    .fadeImage {
+        display: block;
+        width: 300px;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, 0);
+        //moving center of image
+        margin-top: -150px;
+    }
 }
 
 .animateFade {
-    animation: fadeInAndOut ease 1s forwards;    
+    animation: fadeInAndOut ease 1s forwards;
 }
 @keyframes fadeInAndOut {
     0% {
-        opacity: 0;  
+        opacity: 0;
     }
     50% {
         opacity: 1;
     }
     100% {
-        opacity: 0;          
+        opacity: 0;
     }
 }

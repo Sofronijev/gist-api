@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import './List.scss'
 
-export default function List({ pageNum }) {
+export default function List({ pageNum, setPageNum }) {
 
     const [isLoading, setIsLoading] = useState(true)
     const [listData, setListData] = useState([])
@@ -9,12 +9,13 @@ export default function List({ pageNum }) {
     const [errorMsg, setErrorMsg] = useState("")
     const centerImage = useRef(null)
 
-
     useEffect(() => {
         //setLoading between pages
         setIsLoading(true)
         //scroll to the top off the page when page changes
         window.scrollTo(0, 0)
+        //clear selected row state
+        setSelectedRow({})
         fetch(`https://api.github.com/gists/public?per_page=30&page=${pageNum}&since=2021-04-18T07:35:13Z`)
             .then(response => {
                 if (response.ok) {
@@ -33,20 +34,34 @@ export default function List({ pageNum }) {
                     setErrorMsg(error)
                 }
             )
-
     }, [pageNum])
+
+    //handles browsers back button
+    useEffect(() => {
+        window.addEventListener("popstate", ev => {
+            if (ev.state !== null) {
+                setPageNum(ev.state.page_num)
+            }
+        })
+        return () => {
+            window.removeEventListener("popstate", ev => {
+                if (ev.state !== null) {
+                    setPageNum(ev.state.page_num)
+                }
+            })
+        }
+    }, [setPageNum])
 
     const changeSelectedRow = (id, image) => {
         setSelectedRow({ id, image })
-        //shows animation and removes element after 1 s
+        //shows animation and removes element after 1 s               
         const img = centerImage.current
         img.style.display = "block"
         img.className = img.className + " animateFade"
         setTimeout(() => {
-            img.className = "fadeImage"
+            img.className = "img-container"
             img.style.display = "none"
         }, 1000)
-
     }
 
     const displayGists = () => {
@@ -80,13 +95,14 @@ export default function List({ pageNum }) {
                 <ul>
                     {displayGists()}
                 </ul>}
-            <img
-                ref={centerImage}
-                src={selectedRow.image}
-                alt="avatar_img"
-                className={"fadeImage"}
-            >
-            </img>
+            <div className="img-container" ref={centerImage}>
+                <img
+                    src={selectedRow.image}
+                    alt="avatar_img"
+                    className={"fadeImage"}
+                >
+                </img>
+            </div>
         </main>
     )
 }
